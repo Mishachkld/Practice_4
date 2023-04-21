@@ -89,14 +89,27 @@ public:
 private:
     std::vector<Block *> blocks;
     std::string PATH = "D:\\Development\\C++Project\\Second semester\\Practice_4\\blocks.txt";
+    std::string types[NUM_OF_BLOCK][NUM_OF_BLOCK] = {{"Merkuri 230","Nev МТ314","Energomera CE308" },
+                                                     {"Reallab NL-16HV", "PriborElectro PRE-16", "Energoservice ENMV-1-24"},
+                                                     {"Ouman S203", "Oven TPM232"}};
 
     void selectBlock(const std::string &block) {  // нужно по нормальному сделать ч-за массивы
-        if ((block == "Merkuri 230") or (block == "Nev МТ314") or (block == "Energomera CE308"))
+        for (int i = 0; i < 3; i++) {
+            for (const std::string& item:types[i]) {
+                if(item == block and (i == 0))
+                    blocks.push_back(new ElectricCounterBlock(block));
+                else if((item == block) and (i == 1))
+                    blocks.push_back(new DiscreteSignalBlock(block));
+                else if((item == block) and (i == 2))
+                    blocks.push_back(new HeatingControlBlock(block));
+            }
+        }
+        /*if ((block == "Merkuri 230") or (block == "Nev МТ314") or (block == "Energomera CE308"))
             blocks.push_back(new ElectricCounterBlock(block));
         else if ((block == "Reallab NL-16HV") or (block == "PriborElectro PRE-16") or
                  (block == "Energoservice ENMV-1-24"))
             blocks.push_back(new DiscreteSignalBlock(block));
         else if ((block == "Ouman S203") or (block == "Oven TPM232"))
-            blocks.push_back(new HeatingControlBlock(block));
+            blocks.push_back(new HeatingControlBlock(block));*/
     }
 };
