@@ -27,11 +27,15 @@ public:
         // Некоторая реализация получения данных, которую вам делать
         // не нужно.
     }
+protected:
+    std::string type = "Device name";
 };
 
 class ElectricCounterBlock : public Block {
 public:
-    ElectricCounterBlock(std::string type) : type(std::move(type)) {};
+    ElectricCounterBlock(std::string type){
+        this->type = std::move(type);
+    };
 
     virtual ~ElectricCounterBlock() = default;
 
@@ -42,33 +46,32 @@ public:
 
 private:
     const std::string TYPES[QUANTITY_OF_BLOCKS] =  {"Merkuri 230", "Nev МТ314", "Energomera CE308"};
-    std::string type;
+
 };
 
 
 class DiscreteSignalBlock : public Block {
 public:
-    DiscreteSignalBlock(std::string type) : type(std::move(type)) {};
+    DiscreteSignalBlock(std::string type) {
+        this->type = std::move(type);
+    };
 
     void poll() override {
         std::cout << "DiscreteSignalBlock: " << type << std::endl;
     }
 
-private:
-    std::string type;
 };
 
 class HeatingControlBlock : public Block {
 public:
 
-    HeatingControlBlock(std::string type) : type(std::move(type)) {};
+    HeatingControlBlock(std::string type) {
+        this->type = std::move(type);
+    };
 
     void poll() override {
         std::cout << "HeatingControlBlock: " << type << std::endl;
     }
-
-private:
-    std::string type;
 };
 
 class Controller {  /// все управление реализованно через Controller
