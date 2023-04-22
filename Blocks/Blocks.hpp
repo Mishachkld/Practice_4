@@ -12,7 +12,7 @@
 #define QUANTITY_OF_BLOCKS 3
 
 
-class CustomException : public std::exception{
+class CustomException : public std::exception {
 public:
     const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override {
         return "Abobus exception: just Override, Amigoooooo!";
@@ -41,6 +41,7 @@ public:
 
 
 private:
+    const std::string TYPES[QUANTITY_OF_BLOCKS] =  {"Merkuri 230", "Nev МТ314", "Energomera CE308"};
     std::string type;
 };
 
@@ -72,12 +73,15 @@ private:
 
 class Controller {  /// все управление реализованно через Controller
 public:
+    ~Controller() = default;
+
     /// вызвает метод poll у каждого объекта типа block
     void outBlocks() {
         for (auto &block: blocks) {
             block->poll();
         }
     }
+
     /// считывает counter число приборов из файла
     void readAllBlocks(int counter) {
         std::ifstream file;
@@ -87,7 +91,9 @@ public:
             selectBlock(block);
             counter--;
         }
+        file.close();
     }
+
     /// считывает все приборы из файла
     void readAllBlocks() {
         std::ifstream file;
@@ -96,8 +102,8 @@ public:
         if (file.is_open())
             while (getline(file, block)) {
                 selectBlock(block);
-
             }
+        file.close();
     }
 
 private:
@@ -107,7 +113,6 @@ private:
     std::string types[NUM_OF_BLOCK][QUANTITY_OF_BLOCKS] = {{"Merkuri 230",     "Nev МТ314",            "Energomera CE308"},
                                                            {"Reallab NL-16HV", "PriborElectro PRE-16", "Energoservice ENMV-1-24"},
                                                            {"Ouman S203",      "Oven TPM232"}};
-
     /// выбор блока
     void selectBlock(const std::string &block) {
         for (int i = 0; i < 3; i++) {
