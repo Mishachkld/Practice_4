@@ -8,7 +8,7 @@
 #include <vector>
 #include <fstream>
 
-#define NUM_OF_BLOCK 3
+#define NUM_OF_BLOCKS 3
 #define QUANTITY_OF_BLOCKS 3
 
 
@@ -110,12 +110,12 @@ private:
     std::vector<Block *> blocks;
     std::string PATH = "D:\\Development\\C++Project\\Second semester\\Practice_4\\blocks.txt";
     //   std::string PATH = "blocks.txt";
-    std::string types[NUM_OF_BLOCK][QUANTITY_OF_BLOCKS] = {{"Merkuri 230",     "Nev МТ314",            "Energomera CE308"},
-                                                           {"Reallab NL-16HV", "PriborElectro PRE-16", "Energoservice ENMV-1-24"},
-                                                           {"Ouman S203",      "Oven TPM232"}};
+    std::string types[NUM_OF_BLOCKS][QUANTITY_OF_BLOCKS] = {{"Merkuri 230",     "Nev МТ314",            "Energomera CE308"},
+                                                            {"Reallab NL-16HV", "PriborElectro PRE-16", "Energoservice ENMV-1-24"},
+                                                            {"Ouman S203",      "Oven TPM232"}};
     /// выбор блока
     void selectBlock(const std::string &block) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < NUM_OF_BLOCKS; i++) {
             for (const std::string &item: types[i]) {
                 if (item == block and (i == 0))
                     blocks.push_back(new ElectricCounterBlock(block));
