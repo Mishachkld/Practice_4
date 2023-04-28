@@ -27,6 +27,8 @@ public:
         // Некоторая реализация получения данных, которую вам делать
         // не нужно.
     }
+    virtual ~Block() = default;
+
 protected:
     std::string type = "Device name";
 };
@@ -37,7 +39,6 @@ public:
         this->type = std::move(type);
     };
 
-    virtual ~ElectricCounterBlock() = default;
 
     void poll() override {
         std::cout << "ElectricCounterBlock: " << type << std::endl;
@@ -76,7 +77,10 @@ public:
 
 class Controller {  /// все управление реализованно через Controller
 public:
-    ~Controller() = default;
+    ~Controller() {
+        for (auto & block : blocks)
+            delete block;
+    };
 
     /// вызвает метод poll у каждого объекта типа block
     void outBlocks() {
