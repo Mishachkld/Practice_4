@@ -80,9 +80,8 @@ public:
 
     /// вызвает метод poll у каждого объекта типа block
     void outBlocks() {
-        for (auto &block: blocks) {
+        for (auto &block: blocks)
             block->poll();
-        }
     }
 
     /// считывает counter число приборов из файла
@@ -109,8 +108,12 @@ public:
         file.close();
     }
 
+    std::vector<Block*> getBlocks(){
+        return blocks;
+    }
+
 private:
-    std::vector<Block *> blocks;
+    std::vector<Block *> blocks;  // хранит все блоки
     std::string PATH = "D:\\Development\\C++Project\\Second semester\\Practice_4\\blocks.txt";
     //   std::string PATH = "blocks.txt";
     std::string types[NUM_OF_BLOCKS][QUANTITY_OF_BLOCKS] = {{"Merkuri 230",     "Nev МТ314",            "Energomera CE308"},
